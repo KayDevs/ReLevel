@@ -1,0 +1,27 @@
+Obj
+	Player
+	0
+	0
+Obj
+	BasicEnemy
+	32
+	64
+Obj
+	BasicEnemy
+	16
+	64
+Obj
+	BasicEnemy
+	128
+	256
+
+
+Obj
+	BasicEnemy
+	37
+	63
+Obj
+	BasicEnemy
+	16
+	32
+End
