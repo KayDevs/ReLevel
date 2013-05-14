@@ -9,7 +9,7 @@
 #include <memory>
 
 using namespace std;
-class Main : sf::RenderWindow
+class Main : public sf::RenderWindow
 {
 public:
 	int initialize(void);

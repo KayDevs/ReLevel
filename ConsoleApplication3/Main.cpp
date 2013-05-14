@@ -211,9 +211,9 @@ int Main::run()
 
 int main(int argc, char** argv)
 {
-	Main theMain = Main();
-	if(theMain.initialize());
-		return theMain.run();
+	Main* theMain = new Main();
+	if(theMain->initialize());
+		return theMain->run();
 
 	return EXIT_FAILURE;
 }
