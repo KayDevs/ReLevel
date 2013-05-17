@@ -13,6 +13,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 
+#ifdef __WINDOWS__
 #if defined(_DEBUG) || defined(DEBUG)
     #if defined(SFML_STATIC)
         #pragma comment(lib,"sfml-graphics-s-d.lib")
@@ -45,6 +46,7 @@
         #pragma comment(lib,"sfml-system.lib")
         #pragma comment(lib,"sfml-main.lib")
     #endif
+#endif
 #endif
 
 #endif // SFMLFULL_INCLUDED 
