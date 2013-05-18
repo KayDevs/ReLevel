@@ -2,30 +2,30 @@
 
 //***TODO***//
 /*
-* CHECK Implement class factory for mapfile loading
-* MAKE ENEMIES DAMMIT
-* Move view to separate class for manipulation outside of Main
-* Implement image_manager (as described in tutorial)
-* sprites, story, etc.
-* because the size of the game will depend on the screen resolution, make enemies come out as surprises, and bullets fade out after a time NOT OFF SCREEN
-* don't draw anything off screen, but keep the actual objects alive
-* collision system
-* Game will handle loading of images
-* CHECK Brawl-like snapback camera (hold wasd to move camera, when released it will lerp back into place)
-*/
+ * CHECK Implement class factory for mapfile loading
+ * MAKE ENEMIES DAMMIT
+ * Move view to separate class for manipulation outside of Main
+ * Implement image_manager (as described in tutorial)
+ * sprites, story, etc.
+ * because the size of the game will depend on the screen resolution, make enemies come out as surprises, and bullets fade out after a time NOT OFF SCREEN
+ * don't draw anything off screen, but keep the actual objects alive
+ * collision system
+ * Game will handle loading of images
+ * CHECK Brawl-like snapback camera (hold wasd to move camera, when released it will lerp back into place)
+ */
 
 /* MF SYNTAX
-Obj
-	Name
-	X
-	Y
-End (of file)
+   Obj
+   Name
+   X
+   Y
+   End (of file)
 
 Ex:
 Obj
-	Player 
-	24 
-	12
+Player 
+24 
+12
 End
 */
 
@@ -40,7 +40,7 @@ int Main::initialize()
 
 	ViewCenter = sf::Vector2<float>(getSize().x / 2.0f, getSize().y / 2.0f);
 	View.setSize(sf::Vector2f(getSize().x, getSize().y));
-	
+
 	return EXIT_SUCCESS;
 }
 
@@ -53,19 +53,19 @@ int Main::shutdown()
 int Main::run()
 {
 	/*sf::Texture Texture;
-	if(!Texture.loadFromFile("background.jpg"))
-		return EXIT_FAILURE;
+	  if(!Texture.loadFromFile("background.jpg"))
+	  return EXIT_FAILURE;
 
-	for(int i = 0; i < 5; ++i)
-	{
-		gameObjects.emplace_back(new GameObject());
-		gameObjects[i]->setTexture(Texture);
-		//gameObjects[i].setSpeed(0.25f);
+	  for(int i = 0; i < 5; ++i)
+	  {
+	  gameObjects.emplace_back(new GameObject());
+	  gameObjects[i]->setTexture(Texture);
+	//gameObjects[i].setSpeed(0.25f);
 	}*/
 
 	Player* player = (Player*)GameObjectFactory::create("Player");
 	gameObjects.emplace_back(player);
-	
+
 	ifstream mapfile;
 	string line;
 	string c;
@@ -99,7 +99,7 @@ int Main::run()
 			{
 				cout << "SYNTAX ERROR OR LINE BREAK DETECTED" << endl;
 			}
-			
+
 			cout << line << endl;
 		}
 	}
@@ -113,19 +113,19 @@ int Main::run()
 		{
 			switch(Event.type)
 			{
-			case sf::Event::Closed:
-				close();
-				shutdown();
-				break;
-			case sf::Event::KeyPressed:
-				if(Event.key.code == sf::Keyboard::Escape)
+				case sf::Event::Closed:
 					close();
-				break;
-				//case sf::Event::MouseMoved:
+					shutdown();
+					break;
+				case sf::Event::KeyPressed:
+					if(Event.key.code == sf::Keyboard::Escape)
+						close();
+					break;
+					//case sf::Event::MouseMoved:
 
-				//	break;
-			default:
-				break;
+					//	break;
+				default:
+					break;
 			}
 		}
 
@@ -142,9 +142,9 @@ int Main::run()
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) 
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::D) 
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::W) 
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+				|| sf::Keyboard::isKeyPressed(sf::Keyboard::D) 
+				|| sf::Keyboard::isKeyPressed(sf::Keyboard::W) 
+				|| sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
 			float cameraSpeed = 8.0f;
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -162,9 +162,9 @@ int Main::run()
 			float cameraSpeed = 16.0f;
 			//CAMERA SNAPS BACK INTO PLACE
 			if((ViewCenter.x - player->getPosition().x) > threshold 
-				|| (ViewCenter.y - player->getPosition().y) > threshold 
-				|| (ViewCenter.x - player->getPosition().x) < -threshold 
-				|| (ViewCenter.y - player->getPosition().y) < -threshold)
+					|| (ViewCenter.y - player->getPosition().y) > threshold 
+					|| (ViewCenter.x - player->getPosition().x) < -threshold 
+					|| (ViewCenter.y - player->getPosition().y) < -threshold)
 			{
 				if(ViewCenter.x < player->getPosition().x)
 					ViewCenter.x += cameraSpeed * dt;
@@ -213,7 +213,7 @@ int main(int argc, char** argv)
 {
 	Main* theMain = new Main();
 	if(theMain->initialize());
-		return theMain->run();
+	return theMain->run();
 
 	return EXIT_FAILURE;
 }

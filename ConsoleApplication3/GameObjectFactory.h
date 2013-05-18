@@ -6,9 +6,16 @@
 #include <string>
 class GameObjectFactory
 {
-public:
-	GameObjectFactory(void);
-	~GameObjectFactory(void);
-	static GameObject* create(std::string class_name);
+	public:
+		GameObjectFactory(void);
+		~GameObjectFactory(void);
+		static GameObject* create(std::string class_name);
+		static GameObject* create(int class_name);
+
 };
 
+enum
+{
+	PLAYER,
+	BASICENEMY 
+};
