@@ -5,6 +5,7 @@
 #include <random>
 #include "sfml.h"
 #include "Utils.h"
+#include "TextureManager.h"
 
 //GameObject: super-class for all in-game objects
 
@@ -15,8 +16,8 @@ class GameObject :
 		const std::string msg; //message dislayed when interacted with.
 
 	public:
-		GameObject(); //cannot be represented without ID
-		GameObject(float x, float y);
+		GameObject(); 	
+		GameObject(TextureManager& texMan);
 
 		std::string getMsg()
 		{

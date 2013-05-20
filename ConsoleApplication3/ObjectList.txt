@@ -1,8 +1,4 @@
 Obj
-	Player
-	0
-	0
-Obj
 	BasicEnemy
 	32
 	64

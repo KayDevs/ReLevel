@@ -3,37 +3,17 @@
 
 Player::Player(void)
 {
-	if(!playerTexture.loadFromFile("Player.png"))
-	{
-		std::cout<<"Failed to load image Player.png"<<std::endl;
-	}
-	if(!playerDTexture.loadFromFile("DPlayer.png"))
-	{
-		std::cout<<"Failed to load image DPlayer.png"<<std::endl;
-	}
-	setTexture(playerTexture);
-
-	myTestObject.setTexture(playerTexture);
-	myTestObject.setPosition(46, 71);
-
-	//setOrigin(16.0f, 16.0f);
-
-	//std::cout<<"Player created."<<std::endl;
+	//can't really do anything here...
 }
-
-Player::Player(float x, float y)
+Player::Player(TextureManager& texMan)
 {
-	if(!playerTexture.loadFromFile("Player.png"))
-	{
-		std::cout<<"Failed to load image Player.png"<<std::endl;
-	}
-	if(!playerDTexture.loadFromFile("DPlayer.png"))
-	{
-		std::cout<<"Failed to load image DPlayer.png"<<std::endl;
-	}
+	playerTexture = texMan.getTexture("Player.png");
+	playerDTexture = texMan.getTexture("DPlayer.png");
+	//if(!playerTexture.loadFromFile("Player.png"))
+	//if(!playerDTexture.loadFromFile("DPlayer.png"))
+
 	setTexture(playerTexture);
 
-	setPosition(x, y);
 	//myTestObject.setTexture(playerTexture);
 	//myTestObject.setPosition(46, 71);
 

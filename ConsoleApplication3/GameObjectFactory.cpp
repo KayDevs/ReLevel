@@ -51,3 +51,44 @@ GameObject* GameObjectFactory::create(int class_name)
 		return NULL;
 	}
 }
+
+
+GameObject* GameObjectFactory::create(std::string class_name, TextureManager& texMan)
+{
+	if(class_name == "Player")
+	{
+		std::cout<<"Created: Player"<<std::endl;
+		return (GameObject*)(new Player(texMan));
+	}
+	if(class_name == "BasicEnemy")
+	{
+		std::cout<<"Created: BasicEnemy"<<std::endl;
+		return (GameObject*)(new BasicEnemy(texMan));
+	}
+	else
+	{
+		std::cout<<"Jive-ass data all up in this factory: "<< class_name << std::endl;
+		return NULL;
+	}
+}
+
+
+
+GameObject* GameObjectFactory::create(int class_name, TextureManager& texMan)
+{
+	if(class_name == PLAYER)
+	{
+		std::cout<<"Created: Player"<<std::endl;
+		return (GameObject*)(new Player(texMan));
+	}
+	if(class_name == BASICENEMY)
+	{
+		std::cout<<"Created: BasicEnemy"<<std::endl;
+		return (GameObject*)(new BasicEnemy(texMan));
+	}
+	else
+	{
+		std::cout<<"Jive-ass data all up in this factory: "<< class_name << std::endl;
+		return NULL;
+	}
+}

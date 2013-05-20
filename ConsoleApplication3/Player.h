@@ -9,7 +9,7 @@ class Player :
 {
 public:
 	Player(void);
-	Player(float x, float y);
+	Player(TextureManager& texMan);
 	~Player(void);
 
 	sf::Texture playerTexture; //so that it's only loaded once

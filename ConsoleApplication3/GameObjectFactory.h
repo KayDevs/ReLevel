@@ -11,6 +11,8 @@ class GameObjectFactory
 		~GameObjectFactory(void);
 		static GameObject* create(std::string class_name);
 		static GameObject* create(int class_name);
+		static GameObject* create(std::string class_name, TextureManager& texMan);
+		static GameObject* create(int class_name, TextureManager& texMan);
 
 };
 

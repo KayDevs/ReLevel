@@ -4,7 +4,6 @@
 /*
  * CHECK Implement class factory for mapfile loading
  * MAKE ENEMIES DAMMIT
- * Move view to separate class for manipulation outside of Main
  * Implement image_manager (as described in tutorial)
  * sprites, story, etc.
  * because the size of the game will depend on the screen resolution, make enemies come out as surprises, and bullets fade out after a time NOT OFF SCREEN
@@ -46,7 +45,6 @@ int Main::initialize()
 
 int Main::shutdown()
 {
-	//nothing to clean up YET
 	return EXIT_SUCCESS;
 }
 
@@ -63,7 +61,7 @@ int Main::run()
 	//gameObjects[i].setSpeed(0.25f);
 	}*/
 
-	Player* player = (Player*)GameObjectFactory::create("Player");
+	Player* player = (Player*)GameObjectFactory::create("Player", texMan);
 	gameObjects.emplace_back(player);
 
 	ifstream mapfile;
@@ -86,7 +84,7 @@ int Main::run()
 				xpos.erase(remove(xpos.begin(), xpos.end(), '\t'), xpos.end());
 				getline(mapfile, ypos);
 				ypos.erase(remove(ypos.begin(), ypos.end(), '\t'), ypos.end());
-				GameObject* nobj = GameObjectFactory::create(classname);
+				GameObject* nobj = GameObjectFactory::create(classname, texMan);
 				if(nobj)
 				{
 					nobj->setPosition(stoi(xpos), stoi(ypos));

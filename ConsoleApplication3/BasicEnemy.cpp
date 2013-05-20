@@ -3,10 +3,11 @@
 
 BasicEnemy::BasicEnemy(void)
 {
-	if(!basicEnemyTexture.loadFromFile("BasicEnemy.png"))
-	{
-		std::cout<<"Failed to load image Player.png"<<std::endl;
-	}
+}
+
+BasicEnemy::BasicEnemy(TextureManager& texMan)
+{
+	basicEnemyTexture = texMan.getTexture("BasicEnemy.png");
 	setTexture(basicEnemyTexture);
 }
 

@@ -4,9 +4,9 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(float x, float y)
+GameObject::GameObject(TextureManager& texMan)
 {
-	setPosition(x, y);
+	//preferred method, allows for loading textures in a better way
 }
 
 void GameObject::update(float dt)

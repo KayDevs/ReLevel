@@ -1,5 +1,11 @@
 #include "TextureManager.h"
 
+TextureManager::TextureManager()
+{}
+
+TextureManager::~TextureManager()
+{}
+
 const sf::Texture& TextureManager::getTexture(const std::string& filename)
 {
 	for(auto it = textures_.begin(); it!= textures_.end(); ++it)

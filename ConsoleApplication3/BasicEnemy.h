@@ -6,6 +6,7 @@ class BasicEnemy :
 {
 public:
 	BasicEnemy(void);
+	BasicEnemy(TextureManager& texMan);
 	~BasicEnemy(void);
 
 	sf::Texture basicEnemyTexture;
