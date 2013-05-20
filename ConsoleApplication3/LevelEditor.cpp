@@ -80,4 +80,4 @@ int main(int argc, char** argv)
 		Window.display();
 	}
 	return 0;
-
+}

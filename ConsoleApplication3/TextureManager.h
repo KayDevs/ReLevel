@@ -1,6 +1,6 @@
 #pragma once
 #include "sfml.h"
-
+#include <iostream>
 /*
  * ImageManager class from LaurentGomila's SFML tutorial
  * https://github.com/LaurentGomila

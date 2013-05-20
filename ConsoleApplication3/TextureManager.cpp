@@ -24,7 +24,7 @@ const sf::Texture& TextureManager::getTexture(const std::string& filename)
 	return textures_[filename];
 }
 
-void TextureManager::deleteImage(const sf::Image& image)
+void TextureManager::deleteTexture(const sf::Texture& texture)
 {
 	for(auto it = textures_.begin(); it !=  textures_.end(); ++it)
 	{
@@ -36,7 +36,7 @@ void TextureManager::deleteImage(const sf::Image& image)
 	}
 }
 
-void TextureManager::deleteImage(const std::string& filename)
+void TextureManager::deleteTexture(const std::string& filename)
 {
 	auto it = textures_.find(filename);
 	if(it != textures_.end())
