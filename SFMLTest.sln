@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleApplication3", "ConsoleApplication3\ConsoleApplication3.vcxproj", "{E1A51F65-7CED-4AA2-97E5-2C0222C9D693}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SFMLGameEngine", "SFMLGameEngine\SFMLGameEngine.vcxproj", "{E1A51F65-7CED-4AA2-97E5-2C0222C9D693}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
