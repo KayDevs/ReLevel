@@ -28,16 +28,18 @@ Player
 End
 */
 
+//PLAYER's Health will be indicated by a rectangle on his chest (12px down, 8px long)
+
 int Main::initialize()
 {
 	//Not in a constructor for checking (impure)
 	//prepare the window and video settings
 	//create(sf::VideoMode::getFullscreenModes()[0], "SFML Tutorial Thing", sf::Style::Fullscreen);
-	sf::VideoMode testingMode = sf::VideoMode(800, 600, 32);
+	sf::VideoMode testingMode = sf::VideoMode(640, 400, 32);
 	create(testingMode, "Issa gaem", sf::Style::Titlebar);
 	setFramerateLimit(120);
 
-	ViewCenter = sf::Vector2<float>(getSize().x / 2.0f, getSize().y / 2.0f);
+	ViewCenter = sf::Vector2<float>(getSize().x / 4.0f, getSize().y / 4.0f);
 	View.setSize(sf::Vector2f(getSize().x, getSize().y));
 
 	return EXIT_SUCCESS;
@@ -60,6 +62,11 @@ int Main::run()
 	  gameObjects[i]->setTexture(Texture);
 	//gameObjects[i].setSpeed(0.25f);
 	}*/
+
+	sf::Texture BackgroundTex;
+	BackgroundTex.loadFromFile("Background.png");
+	sf::Sprite Background;
+	Background.setTexture(BackgroundTex);
 
 	Player* player = (Player*)GameObjectFactory::create("Player", texMan);
 	gameObjects.emplace_back(player);
@@ -182,11 +189,13 @@ int Main::run()
 		View.setCenter(ViewCenter);
 		setView(View);
 
+		Background.setPosition(ViewCenter.x - 320, ViewCenter.y - 200);
 
 		//GRAPHICS
 
-		clear(sf::Color(0, 0, 0));
+		clear(sf::Color(180, 220, 255));
 
+		draw(Background);
 		for(int i = 0; i < (int)gameObjects.size(); ++i)
 		{
 			//it->setPosition(100.0f, 30.0f);
