@@ -13,7 +13,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 
-#ifdef __WINDOWS__
+#ifdef _WIN32
 #if defined(_DEBUG) || defined(DEBUG)
     #if defined(SFML_STATIC)
         #pragma comment(lib,"sfml-graphics-s-d.lib")
