@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "Collision.h"
 #include "sfml.h"
 
 
