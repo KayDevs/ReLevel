@@ -3,6 +3,7 @@
 #include <vector>
 #include "GameObject.h"
 #include "GameObjectFactory.h"
+#include "TextureManager.h"
 
 /*TODO:
  * DO THE GOD DAMN IMAGE MANAGER
@@ -30,6 +31,9 @@ int main(int argc, char** argv)
 	sf::Texture boxTex;
 	boxTex.loadFromFile("Box.png");
 	sf::Sprite box = sf::Sprite(boxTex);
+
+	TextureManager texMan;
+
 	while (Window.isOpen())
 	{
 		sf::Event Event;
@@ -52,7 +56,7 @@ int main(int argc, char** argv)
 
 					if(Event.key.code == sf::Keyboard::Return)
 					{
-						GameObject* tempObject = GameObjectFactory::create(currentObject);
+						GameObject* tempObject = GameObjectFactory::create(currentObject, texMan);
 						tempObject->setPosition(currentPosition.x, currentPosition.y);
 						objects.emplace_back(tempObject);
 					}

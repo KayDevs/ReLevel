@@ -152,13 +152,13 @@ int Main::run()
 				|| sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
 			float cameraSpeed = 8.0f;
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && (ViewCenter.x >= (player->getPosition().x + 16) - (320 - 32)))
 				ViewCenter.x-=cameraSpeed * dt;
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && (ViewCenter.x <= (player->getPosition().x + 16) + (320 - 32)))
 				ViewCenter.x+=cameraSpeed * dt;
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && (ViewCenter.y >= (player->getPosition().y + 16) - (200 - 32)))
 				ViewCenter.y-=cameraSpeed * dt;
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) && (ViewCenter.y <= (player->getPosition().y + 16) + (200 - 32)))
 				ViewCenter.y+=cameraSpeed * dt;
 		}
 		else
