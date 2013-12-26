@@ -34,8 +34,8 @@ int Main::initialize()
 	//prepare the window and video settings
 	//create(sf::VideoMode::getFullscreenModes()[0], "SFML Tutorial Thing", sf::Style::Fullscreen);
 	sf::VideoMode testingMode = sf::VideoMode(1280, 800, 32);
-	create(testingMode, "Issa gaem", sf::Style::Fullscreen);
-	setFramerateLimit(120);
+	create(testingMode, "ReLevel", sf::Style::None);
+	setFramerateLimit(60);
 
 	ViewCenter = sf::Vector2<float>(getSize().x / 4.0f, getSize().y / 4.0f);
 	View.setSize(sf::Vector2f(getSize().x, getSize().y));
