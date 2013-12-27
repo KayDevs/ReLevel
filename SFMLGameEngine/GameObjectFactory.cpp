@@ -12,7 +12,7 @@ GameObjectFactory::~GameObjectFactory(void)
 
 //WARNING: IT IS NOT THE FACTORY'S RESPONSIBILITY TO HANDLE MEMORY
 
-GameObject* GameObjectFactory::create(std::string class_name)
+/*GameObject* GameObjectFactory::create(std::string class_name)
 {
 	if(class_name == "Player")
 	{
@@ -24,9 +24,14 @@ GameObject* GameObjectFactory::create(std::string class_name)
 		std::cout<<"Created: BasicEnemy"<<std::endl;
 		return (GameObject*)(new BasicEnemy());
 	}
+	if(class_name == "Block")
+	{
+		std::cout<<"Created: Block"<<std::endl;
+		return (GameObject*)(new Block());
+	}
 	else
 	{
-		std::cout<<"Jive-ass data all up in this factory: "<< class_name << std::endl;
+		std::cout<<"Bad data in factory mapfile."<< class_name << std::endl;
 		return NULL;
 	}
 }
@@ -45,12 +50,17 @@ GameObject* GameObjectFactory::create(int class_name)
 		std::cout<<"Created: BasicEnemy"<<std::endl;
 		return (GameObject*)(new BasicEnemy());
 	}
+	if(class_name == BLOCK)
+	{
+		std::cout<<"Created: Block"<<std::endl;
+		return (GameObject*)(new Block());
+	}
 	else
 	{
-		std::cout<<"Jive-ass data all up in this factory: "<< class_name << std::endl;
+		std::cout<<"Bad data in factory mapfile."<< class_name << std::endl;
 		return NULL;
 	}
-}
+}*/
 
 
 GameObject* GameObjectFactory::create(std::string class_name, TextureManager& texMan)
@@ -65,9 +75,14 @@ GameObject* GameObjectFactory::create(std::string class_name, TextureManager& te
 		std::cout<<"Created: BasicEnemy"<<std::endl;
 		return (GameObject*)(new BasicEnemy(texMan));
 	}
+	if(class_name == "Block")
+	{
+		std::cout<<"Created: Block"<<std::endl;
+		return (GameObject*)(new Block(texMan));
+	}
 	else
 	{
-		std::cout<<"Jive-ass data all up in this factory: "<< class_name << std::endl;
+		std::cout<<"Bad data in factory mapfile."<< class_name << std::endl;
 		return NULL;
 	}
 }
@@ -86,9 +101,14 @@ GameObject* GameObjectFactory::create(int class_name, TextureManager& texMan)
 		std::cout<<"Created: BasicEnemy"<<std::endl;
 		return (GameObject*)(new BasicEnemy(texMan));
 	}
+	if(class_name == BLOCK)
+	{
+		std::cout<<"Created: Block"<<std::endl;
+		return (GameObject*)(new Block(texMan));
+	}
 	else
 	{
-		std::cout<<"Jive-ass data all up in this factory: "<< class_name << std::endl;
+		std::cout<<"Bad data in factory mapfile."<< class_name << std::endl;
 		return NULL;
 	}
 }

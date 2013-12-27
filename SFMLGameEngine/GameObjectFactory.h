@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "BasicEnemy.h"
+#include "Block.h"
 #include <string>
 class GameObjectFactory
 {
@@ -19,5 +20,6 @@ class GameObjectFactory
 enum
 {
 	PLAYER,
-	BASICENEMY 
+	BASICENEMY,
+	BLOCK
 };

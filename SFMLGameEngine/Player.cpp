@@ -1,14 +1,12 @@
 #include "Player.h"
 
 
-Player::Player(void)
-{
-	//can't really do anything here...
-}
+//Player::Player(void){}
+
 Player::Player(TextureManager& texMan)
 {
 	playerTexture = texMan.getTexture("Player.png");
-	playerDTexture = texMan.getTexture("DPlayer.png");
+	//playerDTexture = texMan.getTexture("DPlayer.png");
 	//if(!playerTexture.loadFromFile("Player.png"))
 	//if(!playerDTexture.loadFromFile("DPlayer.png"))
 
@@ -38,29 +36,29 @@ void Player::update(float dt)
 		{
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
-				setTexture(playerDTexture);
-				setTextureRect(sf::IntRect(0, 0, 32, 32));
+				//setTexture(playerDTexture);
+				//setTextureRect(sf::IntRect(0, 0, 32, 32));
 				//if(!Collision::BoundingBoxTest(myTestObject, *this))
 					move(4.0f * dt, 0);
 			}
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
-				setTexture(playerDTexture);
-				setTextureRect(sf::IntRect(32, 0, 32, 32));
+				//setTexture(playerDTexture);
+				//setTextureRect(sf::IntRect(32, 0, 32, 32));
 				//if(!Collision::BoundingBoxTest(myTestObject, *this))
 					move(-4.0f * dt, 0);
 			}
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 			{
-				setTexture(playerDTexture);
-				setTextureRect(sf::IntRect(64, 0, 32, 32));
+				//setTexture(playerDTexture);
+				//setTextureRect(sf::IntRect(64, 0, 32, 32));
 				//if(!Collision::BoundingBoxTest(myTestObject, *this))
 					move(0, -4.0f * dt);
 			}
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			{
-				setTextureRect(sf::IntRect(96, 0, 32, 32));
-				setTexture(playerDTexture);
+				//setTextureRect(sf::IntRect(96, 0, 32, 32));
+				//setTexture(playerDTexture);
 				//if(!Collision::BoundingBoxTest(myTestObject, *this))
 					move(0, 4.0f * dt);
 			}

@@ -6,8 +6,6 @@
  * MAKE ENEMIES DAMMIT
  * Implement image_manager (as described in tutorial)
  * sprites, story, etc.
- * because the size of the game will depend on the screen resolution, make enemies come out as surprises, and bullets fade out after a time NOT OFF SCREEN
- * don't draw anything off screen, but keep the actual objects alive
  * collision system
  * Game will handle loading of images
  * CHECK Brawl-like snapback camera (hold wasd to move camera, when released it will lerp back into place)
@@ -35,8 +33,8 @@ int Main::initialize()
 	//Not in a constructor for checking (impure)
 	//prepare the window and video settings
 	//create(sf::VideoMode::getFullscreenModes()[0], "SFML Tutorial Thing", sf::Style::Fullscreen);
-	sf::VideoMode testingMode = sf::VideoMode(640, 400, 32);
-	create(testingMode, "Issa gaem", sf::Style::Titlebar);
+	sf::VideoMode testingMode = sf::VideoMode(1280, 800, 32);
+	create(testingMode, "Issa gaem", sf::Style::Fullscreen);
 	setFramerateLimit(120);
 
 	ViewCenter = sf::Vector2<float>(getSize().x / 4.0f, getSize().y / 4.0f);
@@ -63,10 +61,10 @@ int Main::run()
 	//gameObjects[i].setSpeed(0.25f);
 	}*/
 
-	sf::Texture BackgroundTex;
+	/*sf::Texture BackgroundTex;
 	BackgroundTex.loadFromFile("Background.png");
 	sf::Sprite Background;
-	Background.setTexture(BackgroundTex);
+	Background.setTexture(BackgroundTex);*/
 
 	Player* player = (Player*)GameObjectFactory::create("Player", texMan);
 	gameObjects.emplace_back(player);
@@ -189,13 +187,13 @@ int Main::run()
 		View.setCenter(ViewCenter);
 		setView(View);
 
-		Background.setPosition(ViewCenter.x - 320, ViewCenter.y - 200);
+		//Background.setPosition(ViewCenter.x - 320, ViewCenter.y - 200);
 
 		//GRAPHICS
 
-		clear(sf::Color(180, 220, 255));
+		clear(sf::Color(255, 255, 255));
 
-		draw(Background);
+		//draw(Background);
 		for(int i = 0; i < (int)gameObjects.size(); ++i)
 		{
 			//it->setPosition(100.0f, 30.0f);

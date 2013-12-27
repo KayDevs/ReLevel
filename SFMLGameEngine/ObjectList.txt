@@ -1,9 +1,9 @@
 Obj
-	BasicEnemy
+	Block
 	32
 	64
 Obj
-	BasicEnemy
+	Block
 	16
 	64
 Obj

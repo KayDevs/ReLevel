@@ -7,7 +7,7 @@ class Player :
 	public GameObject
 {
 public:
-	Player(void);
+	//Player(void);
 	Player(TextureManager& texMan);
 	~Player(void);
 

@@ -1,15 +1,15 @@
 #pragma once
 #include "GameObject.h"
 
-class BasicEnemy :
+class Block :
 	public GameObject
 {
 public:
-	//BasicEnemy(void);
-	BasicEnemy(TextureManager& texMan);
-	~BasicEnemy(void);
+	//Block(void);
+	Block(TextureManager& texMan);
+	~Block(void);
 
-	sf::Texture basicEnemyTexture;
+	sf::Texture blockTexture;
 
 	using GameObject::update;
 	virtual void update(float dt);
