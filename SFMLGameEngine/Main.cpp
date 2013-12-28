@@ -3,7 +3,6 @@
 //***TODO***//
 /*
  * CHECK Implement class factory for mapfile loading
- * MAKE ENEMIES DAMMIT
  * Implement image_manager (as described in tutorial)
  * sprites, story, etc.
  * collision system
@@ -26,7 +25,6 @@ Player
 End
 */
 
-//PLAYER's Health will be indicated by a rectangle on his chest (12px down, 8px long)
 
 int Main::initialize()
 {
@@ -122,7 +120,12 @@ int Main::run()
 					break;
 				case sf::Event::KeyPressed:
 					if(Event.key.code == sf::Keyboard::Escape)
+					{
 						close();
+						std::cout<<"Closed."<<std::endl;
+						shutdown();
+						std::cout<<"Shut down."<<std::endl;
+					}
 					break;
 					//case sf::Event::MouseMoved:
 
@@ -216,9 +219,12 @@ int Main::run()
 
 int main(int argc, char** argv)
 {
-	Main* theMain = new Main();
-	if(theMain->initialize());
-	return theMain->run();
-
+	Main theMain;
+	if(theMain.initialize() == 0)
+	{
+		std::cout<<"Initialized."<<std::endl;
+		return theMain.run();
+	}
+		
 	return EXIT_FAILURE;
 }

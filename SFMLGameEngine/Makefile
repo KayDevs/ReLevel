@@ -1,5 +1,5 @@
 #compiler
-CC=clang++
+CC=g++
 CFLAGS= -Wall -pedantic -std=c++11
 LIBS=-lsfml-system -lsfml-window -lsfml-graphics
 SRC=Main.cpp GameObject.cpp GameObjectFactory.cpp Player.cpp BasicEnemy.cpp Block.cpp Utils.cpp TextureManager.cpp
