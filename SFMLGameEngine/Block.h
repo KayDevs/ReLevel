@@ -11,6 +11,8 @@ public:
 
 	sf::Texture blockTexture;
 
+	sf::RectangleShape* blockShape;
+
 	using GameObject::update;
 	virtual void update(float dt);
 };

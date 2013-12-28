@@ -7,6 +7,10 @@ Block::Block(TextureManager& texMan)
 {
 	blockTexture = texMan.getTexture("Block.png");
 	setTexture(blockTexture);
+
+	blockShape = new sf::RectangleShape();
+	blockShape->setPosition(getPosition());
+	blockShape->setSize(sf::Vector2f(getGlobalBounds().width, getGlobalBounds().height));
 }
 
 
