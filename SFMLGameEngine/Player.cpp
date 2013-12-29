@@ -17,6 +17,12 @@ Player::Player(TextureManager& texMan)
 
 	//setOrigin(16.0f, 16.0f);
 
+	
+	collision.setPointCount(4);
+	collision.setPoint(0, sf::Vector2f(0, 0));
+	collision.setPoint(1, sf::Vector2f(32, 0));
+	collision.setPoint(2, sf::Vector2f(32, 32));
+	collision.setPoint(3, sf::Vector2f(0, 32));
 	//std::cout<<"Player created."<<std::endl;
 }
 
@@ -73,4 +79,10 @@ void Player::update(float dt)
 			setTexture(playerTexture);
 			setTextureRect(sf::IntRect(0, 0, 32, 32));
 		}
+	
+		//update collision shape
+		collision.setPoint(0, sf::Vector2f(getPosition().x, getPosition().y));
+		collision.setPoint(1, sf::Vector2f(getPosition().x + 32, getPosition().y));
+		collision.setPoint(2, sf::Vector2f(getPosition().x + 32, getPosition().y + 32));
+		collision.setPoint(3, sf::Vector2f(getPosition().x, getPosition().y + 32));
 }

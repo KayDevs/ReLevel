@@ -145,6 +145,16 @@ int Main::run()
 		for(int i = 0; i < (int)gameObjects.size(); ++i)
 		{
 			gameObjects[i]->update(dt);
+			if(gameObjects[i]->solid == true)
+			{
+				if(Utils::isColliding(player->collision, gameObjects[i]->collision))
+				{
+					std::cout<<"Player collided with something!"<<std::endl;
+					Utils::MTV coll = Utils::getCollision(player->collision, gameObjects[i]->collision);
+					//player->move(coll.smallest.x * coll.overlap, coll.smallest.y * coll.overlap);
+					//std::cout<<player->collision.getPoint(0).x<<std::endl;
+				}
+			}
 		}
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) 
@@ -194,7 +204,7 @@ int Main::run()
 
 		//GRAPHICS
 
-		clear(sf::Color(255, 255, 255));
+		clear(sf::Color(0, 0, 0));
 
 		//draw(Background);
 		for(int i = 0; i < (int)gameObjects.size(); ++i)
@@ -205,8 +215,8 @@ int Main::run()
 			//gameObjects.at(0).setPosition(100.0f, 30.0f);
 			//it->setScale(.25f, .25f);
 			//gameObjects[i]->setColor(sf::Color(255, 255, 255, 128));
-			draw(*gameObjects[i]);
-			draw(player->myTestObject);
+			//draw(*gameObjects[i]);
+			draw(gameObjects[i]->collision);
 		}
 
 		display();

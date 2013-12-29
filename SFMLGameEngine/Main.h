@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "TextureManager.h"
 #include <memory>
+#include "Utils.h"
 
 using namespace std;
 class Main : public sf::RenderWindow

@@ -19,6 +19,9 @@ class GameObject :
 		GameObject(); 	
 		GameObject(TextureManager& texMan);
 
+		sf::ConvexShape collision;
+		bool solid = false;
+
 		std::string getMsg()
 		{
 			return msg;

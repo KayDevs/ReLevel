@@ -1,23 +1,26 @@
 Obj
 	Block
+	64
+	64
+Obj
+	Block
 	32
 	64
 Obj
 	Block
-	16
+	0
 	64
 Obj
-	BasicEnemy
-	128
-	256
-
-
+	Block
+	-32
+	64
 Obj
-	BasicEnemy
-	37
-	63
+	Block
+	-64
+	64
 Obj
-	BasicEnemy
-	16
+	Block
+	-64
 	32
+
 End
