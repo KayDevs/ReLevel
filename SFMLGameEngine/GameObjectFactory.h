@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "BasicEnemy.h"
 #include "Block.h"
+#include "LSlope.h"
+#include "RSlope.h"
 #include <string>
 class GameObjectFactory
 {
@@ -21,5 +23,7 @@ enum
 {
 	PLAYER,
 	BASICENEMY,
-	BLOCK
+	BLOCK,
+	LSLOPE,
+	RSLOPE
 };

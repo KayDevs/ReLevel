@@ -15,12 +15,30 @@ Obj
 	-32
 	64
 Obj
+	LSlope
+	-32
+	32
+Obj
 	Block
 	-64
 	64
 Obj
 	Block
 	-64
+	32
+
+Obj
+	Block
+	96
+	64
+
+Obj
+	Block
+	96
+	32
+Obj
+	RSlope
+	64
 	32
 
 End

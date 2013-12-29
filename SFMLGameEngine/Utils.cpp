@@ -23,6 +23,15 @@ bool Utils::isColliding(sf::ConvexShape a, sf::ConvexShape b)
 
 Utils::MTV Utils::getCollision(sf::ConvexShape a, sf::ConvexShape b)
 {
+	//offset the points accordingly (disparity between shape coordinates and shape 'transform position')
+	for (int i = 0; i < a.getPointCount(); ++i)
+	{
+		a.setPoint(i, sf::Vector2f(a.getPoint(i).x + a.getPosition().x, a.getPoint(i).y + a.getPosition().y));
+	}
+	for (int i = 0; i < b.getPointCount(); ++i)
+	{
+		b.setPoint(i, sf::Vector2f(b.getPoint(i).x + b.getPosition().x, b.getPoint(i).y + b.getPosition().y));
+	}
 	float overlap = 1000;
 	sf::Vector2f smallest;
 	//obtain list of axes to test as Vector2fs
@@ -74,6 +83,16 @@ Utils::MTV Utils::getCollision(sf::ConvexShape a, sf::ConvexShape b)
 	for(auto it = axes.begin(); it != axes.end(); ++it)
 	{
 		sf::Vector2f axis = (*it);
+
+		//make sure vector is in correct direction
+		sf::Vector2f p1 = a.getPosition();
+		sf::Vector2f p2 = b.getPosition();
+
+		sf::Vector2f diff = p1 - p2;
+
+		if ((diff.x * axis.x + diff.y * axis.y) < 0)
+			axis = -axis;
+
 		//get projection of shapes
 		float aminimum = axis.x * a.getPoint(0).x + axis.y * a.getPoint(0).y; //dot product
 		float amaximum = aminimum;
@@ -102,13 +121,21 @@ Utils::MTV Utils::getCollision(sf::ConvexShape a, sf::ConvexShape b)
 		else
 		{
 			float o;
+			//amin --- bmin === amax --- bmax
 			if(amaximum <= bmaximum)
-				o = abs(amaximum - bminimum);
+			{
+				o = amaximum - bminimum;
+			}
+			//bmin --- amin === bmax --- amax
 			else
-				o = abs(bmaximum - aminimum);
+			{
+				o = bmaximum - aminimum;
+			}
 			if(o < overlap)
+			{
 				overlap = o;
 				smallest = axis;
+			}
 		}
 	}
 	Utils::MTV theMTV{smallest, overlap};

@@ -3,11 +3,12 @@
 //***TODO***//
 /*
  * CHECK Implement class factory for mapfile loading
- * Implement image_manager (as described in tutorial)
+ * CHECK Implement image_manager (as described in tutorial)
  * sprites, story, etc.
- * collision system
+ * CHECK collision system
  * Game will handle loading of images
  * CHECK Brawl-like snapback camera (hold wasd to move camera, when released it will lerp back into place)
+ * TODO externalize all local variables in Main and move majority of code into functions i.e. die() reset() nextLevel() or whatever
  */
 
 /* MF SYNTAX
@@ -32,7 +33,7 @@ int Main::initialize()
 	//prepare the window and video settings
 	//create(sf::VideoMode::getFullscreenModes()[0], "SFML Tutorial Thing", sf::Style::Fullscreen);
 	sf::VideoMode testingMode = sf::VideoMode(1280, 800, 32);
-	create(testingMode, "ReLevel", sf::Style::None);
+	create(testingMode, "ReLevel", sf::Style::Fullscreen);
 	setFramerateLimit(60);
 
 	ViewCenter = sf::Vector2<float>(getSize().x / 4.0f, getSize().y / 4.0f);
@@ -106,6 +107,11 @@ int Main::run()
 	}
 	mapfile.close();
 
+	float dt;
+	sf::RectangleShape overlay;
+	overlay.setSize(sf::Vector2f(1280, 800));
+	overlay.setPosition(sf::Vector2f(ViewCenter.x - 1280/2, ViewCenter.y - 800/2));
+	overlay.setFillColor(sf::Color(255, 255, 255, 0));
 
 	while(isOpen())
 	{
@@ -126,6 +132,12 @@ int Main::run()
 						shutdown();
 						std::cout<<"Shut down."<<std::endl;
 					}
+					if(Event.key.code == sf::Keyboard::R)
+					{
+						player->setPosition(0, 0);
+						overlay.setFillColor(sf::Color(255, 255, 255, 255));
+						ViewCenter = sf::Vector2f(0, 0);
+					}
 					break;
 					//case sf::Event::MouseMoved:
 
@@ -137,25 +149,35 @@ int Main::run()
 
 		//LOGIC
 		deltaTime = deltaClock.restart();
-		float dt = deltaTime.asSeconds() * 60.0f;
+		dt = deltaTime.asSeconds() * 60.0f;
 
 		float absMouseX = sf::Mouse::getPosition(*this).x + ViewCenter.x - getSize().x / 2.0f;
 		float absMouseY = sf::Mouse::getPosition(*this).y + ViewCenter.y - getSize().y / 2.0f;
 
+		bool hasCollided = false;
+		Utils::MTV coll{sf::Vector2f(0, 0), 0};
 		for(int i = 0; i < (int)gameObjects.size(); ++i)
 		{
 			gameObjects[i]->update(dt);
-			if(gameObjects[i]->solid == true)
+			if(gameObjects[i]->solid == true /*&& !hasCollided*/) //check if object is solid and isn't already colliding with something (double collisions will move him too far)
 			{
 				if(Utils::isColliding(player->collision, gameObjects[i]->collision))
 				{
-					std::cout<<"Player collided with something!"<<std::endl;
-					Utils::MTV coll = Utils::getCollision(player->collision, gameObjects[i]->collision);
-					//player->move(coll.smallest.x * coll.overlap, coll.smallest.y * coll.overlap);
-					//std::cout<<player->collision.getPoint(0).x<<std::endl;
+					//std::cout<<"Player collided with something!"<<std::endl;
+					Utils::MTV min = Utils::getCollision(player->collision, gameObjects[i]->collision);
+					if(min.overlap > coll.overlap)
+						coll = min;
+					hasCollided = true;
 				}
 			}
 		}
+		if(hasCollided)
+		{
+			player->move(coll.smallest.x * coll.overlap, coll.smallest.y * coll.overlap);
+			player->collision.setFillColor(sf::Color(255,0,0));
+		}
+		else
+			player->collision.setFillColor(sf::Color(0,0,0));
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) 
 				|| sf::Keyboard::isKeyPressed(sf::Keyboard::D) 
@@ -199,12 +221,13 @@ int Main::run()
 
 		View.setCenter(ViewCenter);
 		setView(View);
+		overlay.setPosition(sf::Vector2f(ViewCenter.x - 1280/2, ViewCenter.y - 800/2));
 
 		//Background.setPosition(ViewCenter.x - 320, ViewCenter.y - 200);
 
 		//GRAPHICS
 
-		clear(sf::Color(0, 0, 0));
+		clear(sf::Color(255, 255, 255));
 
 		//draw(Background);
 		for(int i = 0; i < (int)gameObjects.size(); ++i)
@@ -215,10 +238,16 @@ int Main::run()
 			//gameObjects.at(0).setPosition(100.0f, 30.0f);
 			//it->setScale(.25f, .25f);
 			//gameObjects[i]->setColor(sf::Color(255, 255, 255, 128));
-			//draw(*gameObjects[i]);
-			draw(gameObjects[i]->collision);
+			draw(*gameObjects[i]);
+			//draw(gameObjects[i]->collision);
 		}
 
+		if(overlay.getFillColor().a > 0)
+			overlay.setFillColor(sf::Color(255,255,255,overlay.getFillColor().a - 4 * dt));
+		if(overlay.getFillColor().a < 0)
+			overlay.setFillColor(sf::Color(255,255,255,0));
+
+		draw(overlay);
 		display();
 	}
 
