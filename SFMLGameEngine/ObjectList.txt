@@ -1,44 +1,177 @@
 Obj
-	Block
-	64
-	64
+Block
+64
+64
 Obj
-	Block
-	32
-	64
+Block
+32
+64
 Obj
-	Block
-	0
-	64
+Block
+0
+64
 Obj
-	Block
-	-32
-	64
+Block
+-32
+64
 Obj
-	LSlope
-	-32
-	32
+LSlope
+-32
+32
 Obj
-	Block
-	-64
-	64
+Block
+-64
+64
 Obj
-	Block
-	-64
-	32
-
+Block
+-64
+32
 Obj
-	Block
-	96
-	64
-
+Block
+96
+64
 Obj
-	Block
-	96
-	32
+Block
+96
+32
 Obj
-	RSlope
-	64
-	32
-
+RSlope
+64
+32
+Obj
+Block
+-96
+64
+Obj
+Block
+-128
+64
+Obj
+Block
+-160
+64
+Obj
+Block
+-192
+64
+Obj
+Block
+-224
+64
+Obj
+Block
+-256
+64
+Obj
+Block
+128
+64
+Obj
+Block
+160
+64
+Obj
+Block
+192
+64
+Obj
+Block
+224
+64
+Obj
+Block
+256
+64
+Obj
+Block
+288
+64
+Obj
+Block
+320
+64
+Obj
+Block
+352
+64
+Obj
+Block
+-288
+64
+Obj
+Block
+-320
+64
+Obj
+Block
+-288
+32
+Obj
+Block
+-256
+32
+Obj
+Block
+-224
+32
+Obj
+Block
+-256
+0
+Obj
+Block
+192
+32
+Obj
+LSlope
+320
+32
+Obj
+RSlope
+288
+32
+Obj
+RSlope
+-96
+32
+Obj
+LSlope
+-352
+64
+Obj
+Block
+-352
+64
+Obj
+Block
+-352
+32
+Obj
+Block
+-352
+0
+Obj
+Block
+-352
+-32
+Obj
+Block
+-352
+-64
+Obj
+Block
+-352
+-96
+Obj
+Block
+-352
+-128
+Obj
+Block
+-352
+-144
+Obj
+Block
+-352
+-160
 End

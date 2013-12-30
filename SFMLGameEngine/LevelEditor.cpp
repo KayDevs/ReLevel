@@ -27,16 +27,27 @@ void switchObject(bool direction)
 }
 std::string objectToString(int object)
 {
-	if(object==0)
-		return "Player";
-	if(object==1)
-		return "BasicEnemy";
-	if(object==2)
-		return "Block";
-	if(object==3)
-		return "LSlope";
-	if(object==4)
-		return "RSlope";
+	switch(object)
+	{
+		case 0:
+			return "Player";
+			break;
+		case 1:
+			return "BasicEnemy";
+			break;
+		case 2:
+			return "Block";
+			break;
+		case 3:
+			return "LSlope";
+			break;
+		case 4:
+			return "RSlope";
+			break;
+		default:
+			return "";
+			break;
+	}
 }
 
 int main(int argc, char** argv)
@@ -48,6 +59,9 @@ int main(int argc, char** argv)
 	sf::VideoMode VMode(800, 600, 32);
 	sf::RenderWindow Window(VMode, "Level Editor");
 	sf::Texture boxTex;
+	sf::View View;
+	sf::Vector2<float> ViewCenter;
+	View.setSize(sf::Vector2f(800,600));
 	boxTex.loadFromFile("Box.png");
 	sf::Sprite box = sf::Sprite(boxTex);
 
@@ -120,6 +134,7 @@ int main(int argc, char** argv)
 						}
 						mapout<<"End"<<std::endl;
 						mapout.close();
+						std::cout<<"Level saved."<<std::endl;
 					}
 					if(Event.key.code == sf::Keyboard::Escape)
 						Window.close();
@@ -139,6 +154,17 @@ int main(int argc, char** argv)
 						ys.emplace_back(currentPosition.y);
 					}
 
+					//camera controls
+					if(Event.key.code == sf::Keyboard::L)
+						ViewCenter.x += 32;
+					if(Event.key.code == sf::Keyboard::J)
+						ViewCenter.x -= 32;
+					if(Event.key.code == sf::Keyboard::K)
+						ViewCenter.y += 32;
+					if(Event.key.code == sf::Keyboard::I)
+						ViewCenter.y -= 32;
+					View.setCenter(ViewCenter);
+
 					if(Event.key.code == sf::Keyboard::Left)
 						currentPosition.x -= 16;
 					if(Event.key.code == sf::Keyboard::Right)
@@ -148,11 +174,14 @@ int main(int argc, char** argv)
 					if(Event.key.code == sf::Keyboard::Down)
 						currentPosition.y += 16;
 					box.setPosition(currentPosition.x, currentPosition.y);
+					std::cout<<"Current Position: "<<currentPosition.x<<" "<<currentPosition.y<<std::endl;
 					break;
 				default:
 					break;
 			}
 		}
+
+		Window.setView(View);
 		Window.clear(sf::Color(128, 128, 128));
 		for(auto it = objects.begin(); it < objects.end(); ++it)
 		{
