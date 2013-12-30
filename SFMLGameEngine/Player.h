@@ -18,8 +18,13 @@ public:
 
 	using GameObject::update;
 	virtual void update(float dt);
+	using GameObject::updateCollision;
+	virtual void updateCollision(float dt, std::vector<std::unique_ptr<GameObject>> &others);
 
 	bool inAir = false;
+	bool killed = false;
+	sf::Clock killClock;
+	float killTime = 3.0f;
 	int hasJumped = 0;
 	bool jumpPressed = false;
 };

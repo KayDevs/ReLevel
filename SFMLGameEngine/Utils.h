@@ -1,5 +1,8 @@
 #pragma once
 #include <cstdlib>
+#include <memory>
+#include <vector>
+#include <iostream>
 #include "sfml.h"
 
 namespace Utils

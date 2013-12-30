@@ -34,7 +34,7 @@ int Main::initialize()
 	//create(sf::VideoMode::getFullscreenModes()[0], "SFML Tutorial Thing", sf::Style::Fullscreen);
 	sf::VideoMode testingMode = sf::VideoMode(1280, 800, 32);
 	create(testingMode, "ReLevel", sf::Style::Fullscreen);
-	setFramerateLimit(60);
+	setFramerateLimit(120);
 
 	//ViewCenter = sf::Vector2<float>(getSize().x / 4.0f, getSize().y / 4.0f);
 	ViewCenter = sf::Vector2f(0, 0);
@@ -67,8 +67,8 @@ int Main::run()
 	Background.setTexture(BackgroundTex);*/
 
 	Player* player = (Player*)GameObjectFactory::create("Player", texMan);
-	player->setPosition(0, -256);
-	player->grav = 0;
+	player->setPosition(0.0f, 0.0f);
+	player->grav = 0.0f;
 	player->inAir = false;
 	gameObjects.emplace_back(player);
 
@@ -93,6 +93,8 @@ int Main::run()
 				getline(mapfile, ypos);
 				ypos.erase(remove(ypos.begin(), ypos.end(), '\t'), ypos.end());
 				GameObject* nobj = GameObjectFactory::create(classname, texMan);
+				std::cout<<classname<<std::endl;
+				std::cout<<stoi(xpos)<<std::endl;
 				if(nobj)
 				{
 					nobj->setPosition(stoi(xpos), stoi(ypos));
@@ -111,11 +113,13 @@ int Main::run()
 	}
 	mapfile.close();
 
-	float dt;
+	float dt = 0.0f;
+	deltaClock.restart();
 	sf::RectangleShape overlay;
 	overlay.setSize(sf::Vector2f(1280, 800));
 	overlay.setPosition(sf::Vector2f(ViewCenter.x - 1280/2, ViewCenter.y - 800/2));
 	overlay.setFillColor(sf::Color(255, 255, 255, 0));
+	float overlayAlpha = 255;
 
 	while(isOpen())
 	{
@@ -139,7 +143,10 @@ int Main::run()
 					if(Event.key.code == sf::Keyboard::R)
 					{
 						player->setPosition(0, 0);
-						overlay.setFillColor(sf::Color(255, 255, 255, 255));
+						player->grav = 0.0f;
+						player->vspeed = 0.0f;
+						player->hspeed = 0.0f;
+						overlayAlpha = 255;
 						ViewCenter = sf::Vector2f(0, 0);
 					}
 					break;
@@ -151,49 +158,29 @@ int Main::run()
 			}
 		}
 
+
+
 		//LOGIC
 		deltaTime = deltaClock.restart();
 		dt = deltaTime.asSeconds() * 60.0f;
 
-		//float absMouseX = sf::Mouse::getPosition(*this).x + ViewCenter.x - getSize().x / 2.0f;
-		//float absMouseY = sf::Mouse::getPosition(*this).y + ViewCenter.y - getSize().y / 2.0f;
-
-		bool hasCollided = false;
-		Utils::MTV coll{sf::Vector2f(0, 0), 0};
 		for(int i = 0; i < (int)gameObjects.size(); ++i)
 		{
 			gameObjects[i]->update(dt);
-			if(gameObjects[i]->solid == true /*&& !hasCollided*/) //check if object is solid and isn't already colliding with something (double collisions will move him too far)
-			{
-				if(Utils::isColliding(player->collision, gameObjects[i]->collision))
-				{
-					//std::cout<<"Player collided with something!"<<std::endl;
-					Utils::MTV min = Utils::getCollision(player->collision, gameObjects[i]->collision);
-					if(min.overlap > coll.overlap)
-						coll = min;
-					hasCollided = true;
-
-				}
-			}
+			gameObjects[i]->updateCollision(dt, gameObjects);
 		}
-		if(hasCollided)
+		if(player->killed == true)
 		{
-			player->move(coll.smallest.x * coll.overlap, coll.smallest.y * coll.overlap);
-			//if player is being pushed upwards (i.e. an object is below him) turn off gravity
-			if(coll.smallest.y* coll.overlap < 0)
-			{
-				player->vspeed = 0;
-				player->grav = 0;
-			}
-			player->collision.setFillColor(sf::Color(255,0,0));
-		}
-		else
-		{
-			player->collision.setFillColor(sf::Color(0,0,0));
-			player->grav = 0.5f;
+			overlayAlpha = 255;
+			ViewCenter = sf::Vector2f(0, 0);
 		}
 
-		/*if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) 
+
+		//float absMouseX = sf::Mouse::getPosition(*this).x + ViewCenter.x - getSize().x / 2.0f;
+		//float absMouseY = sf::Mouse::getPosition(*this).y + ViewCenter.y - getSize().y / 2.0f;
+
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) 
 				|| sf::Keyboard::isKeyPressed(sf::Keyboard::D) 
 				|| sf::Keyboard::isKeyPressed(sf::Keyboard::W) 
 				|| sf::Keyboard::isKeyPressed(sf::Keyboard::S))
@@ -210,7 +197,7 @@ int Main::run()
 		}
 		else
 		{
-			float threshold = 12.0f;
+			float threshold = 32.0f;
 			float cameraSpeed = 16.0f;
 			//CAMERA SNAPS BACK INTO PLACE
 			if((ViewCenter.x - player->getPosition().x) > threshold 
@@ -231,10 +218,10 @@ int Main::run()
 			{
 				ViewCenter = player->getPosition();
 			}
-		}*/
+		}
 
 
-		ViewCenter = player->getPosition();
+		//ViewCenter = player->getPosition();
 
 		View.setCenter(ViewCenter);
 		setView(View);
@@ -259,10 +246,14 @@ int Main::run()
 			//draw(gameObjects[i]->collision);
 		}
 
-		if(overlay.getFillColor().a > 0)
-			overlay.setFillColor(sf::Color(255,255,255,overlay.getFillColor().a - 4 * dt));
-		if(overlay.getFillColor().a < 0)
-			overlay.setFillColor(sf::Color(255,255,255,0));
+		std::cout<<"Overlay Alpha: "<<overlayAlpha<<std::endl;
+		if(overlayAlpha > 0)
+			overlayAlpha -= 8.0f * dt;
+		if(overlayAlpha <= 0)
+		{
+			overlayAlpha = 0.0f;
+		}
+		overlay.setFillColor(sf::Color(255,255,255,overlayAlpha));
 
 		draw(overlay);
 		display();

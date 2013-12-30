@@ -21,6 +21,7 @@ class GameObject :
 
 		sf::ConvexShape collision;
 		bool solid = false;
+		bool kill = false;
 
 		float hspeed = 0.0f, vspeed = 0.0f;
 		float haccel = 0.0f, vaccel = 0.0f;
@@ -32,6 +33,7 @@ class GameObject :
 		}
 
 		//sf::Texture image;
+		virtual void updateCollision(float dt, std::vector<std::unique_ptr<GameObject>> &others);
 		virtual void update(float dt); //to be over-ridden
 
 		void follow(GameObject other, float deltaTime = 0, float speed = 0);

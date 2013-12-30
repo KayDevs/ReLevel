@@ -6,7 +6,6 @@
 #include "GameObjectFactory.h"
 #include "Player.h"
 #include "TextureManager.h"
-#include <memory>
 #include "Utils.h"
 
 using namespace std;
