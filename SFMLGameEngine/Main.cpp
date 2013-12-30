@@ -36,7 +36,8 @@ int Main::initialize()
 	create(testingMode, "ReLevel", sf::Style::Fullscreen);
 	setFramerateLimit(60);
 
-	ViewCenter = sf::Vector2<float>(getSize().x / 4.0f, getSize().y / 4.0f);
+	//ViewCenter = sf::Vector2<float>(getSize().x / 4.0f, getSize().y / 4.0f);
+	ViewCenter = sf::Vector2f(0, 0);
 	View.setSize(sf::Vector2f(getSize().x, getSize().y));
 
 	return EXIT_SUCCESS;
@@ -66,12 +67,15 @@ int Main::run()
 	Background.setTexture(BackgroundTex);*/
 
 	Player* player = (Player*)GameObjectFactory::create("Player", texMan);
+	player->setPosition(0, -256);
+	player->grav = 0;
+	player->inAir = false;
 	gameObjects.emplace_back(player);
 
 	ifstream mapfile;
 	string line;
 	string c;
-	mapfile.open("ObjectList.txt");
+	mapfile.open("ObjectList2.txt"); //change to argv[1]
 	if(mapfile.is_open())
 	{
 		while(mapfile.good())
@@ -151,8 +155,8 @@ int Main::run()
 		deltaTime = deltaClock.restart();
 		dt = deltaTime.asSeconds() * 60.0f;
 
-		float absMouseX = sf::Mouse::getPosition(*this).x + ViewCenter.x - getSize().x / 2.0f;
-		float absMouseY = sf::Mouse::getPosition(*this).y + ViewCenter.y - getSize().y / 2.0f;
+		//float absMouseX = sf::Mouse::getPosition(*this).x + ViewCenter.x - getSize().x / 2.0f;
+		//float absMouseY = sf::Mouse::getPosition(*this).y + ViewCenter.y - getSize().y / 2.0f;
 
 		bool hasCollided = false;
 		Utils::MTV coll{sf::Vector2f(0, 0), 0};
@@ -168,18 +172,28 @@ int Main::run()
 					if(min.overlap > coll.overlap)
 						coll = min;
 					hasCollided = true;
+
 				}
 			}
 		}
 		if(hasCollided)
 		{
 			player->move(coll.smallest.x * coll.overlap, coll.smallest.y * coll.overlap);
+			//if player is being pushed upwards (i.e. an object is below him) turn off gravity
+			if(coll.smallest.y* coll.overlap < 0)
+			{
+				player->vspeed = 0;
+				player->grav = 0;
+			}
 			player->collision.setFillColor(sf::Color(255,0,0));
 		}
 		else
+		{
 			player->collision.setFillColor(sf::Color(0,0,0));
+			player->grav = 0.5f;
+		}
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) 
+		/*if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) 
 				|| sf::Keyboard::isKeyPressed(sf::Keyboard::D) 
 				|| sf::Keyboard::isKeyPressed(sf::Keyboard::W) 
 				|| sf::Keyboard::isKeyPressed(sf::Keyboard::S))
@@ -196,7 +210,7 @@ int Main::run()
 		}
 		else
 		{
-			float threshold = 8.0f;
+			float threshold = 12.0f;
 			float cameraSpeed = 16.0f;
 			//CAMERA SNAPS BACK INTO PLACE
 			if((ViewCenter.x - player->getPosition().x) > threshold 
@@ -217,7 +231,10 @@ int Main::run()
 			{
 				ViewCenter = player->getPosition();
 			}
-		}
+		}*/
+
+
+		ViewCenter = player->getPosition();
 
 		View.setCenter(ViewCenter);
 		setView(View);

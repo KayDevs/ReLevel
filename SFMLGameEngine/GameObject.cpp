@@ -11,6 +11,12 @@ GameObject::GameObject(TextureManager& texMan)
 
 void GameObject::update(float dt)
 {
+	hspeed += haccel * dt;
+	vspeed += vaccel * dt;
+	vspeed += grav * dt;
+	move(hspeed * dt, vspeed * dt);
+	if (vspeed > 12.0f)
+		vspeed = 12.0f;
 }
 
 void GameObject::follow(GameObject other, float deltaTime, float speed)

@@ -18,5 +18,9 @@ public:
 
 	using GameObject::update;
 	virtual void update(float dt);
+
+	bool inAir = false;
+	int hasJumped = 0;
+	bool jumpPressed = false;
 };
 

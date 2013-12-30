@@ -22,6 +22,10 @@ class GameObject :
 		sf::ConvexShape collision;
 		bool solid = false;
 
+		float hspeed = 0.0f, vspeed = 0.0f;
+		float haccel = 0.0f, vaccel = 0.0f;
+		float grav = 0.5f;
+
 		std::string getMsg()
 		{
 			return msg;

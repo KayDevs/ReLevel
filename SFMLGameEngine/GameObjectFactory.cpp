@@ -65,11 +65,6 @@ GameObject* GameObjectFactory::create(int class_name, TextureManager& texMan)
 		std::cout<<"Created: Block"<<std::endl;
 		return (GameObject*)(new Block(texMan));
 	}
-	else
-	{
-		std::cout<<"Bad data in factory mapfile."<< class_name << std::endl;
-		return NULL;
-	}
 	if(class_name == RSLOPE)
 	{
 		std::cout<<"Created: RSlope"<<std::endl;
@@ -79,5 +74,10 @@ GameObject* GameObjectFactory::create(int class_name, TextureManager& texMan)
 	{
 		std::cout<<"Created: LSlope"<<std::endl;
 		return (GameObject*)(new LSlope(texMan));
+	}
+	else
+	{
+		std::cout<<"Bad data in factory mapfile."<< class_name << std::endl;
+		return NULL;
 	}
 }

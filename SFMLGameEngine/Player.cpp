@@ -34,15 +34,17 @@ Player::~Player(void)
 
 void Player::update(float dt)
 {
-
-		float hspeed = 0.0f, vspeed = 0.0f;
-		//std::cout<<"PLAYER IS GOING"<<std::endl;
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) 
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-
+		if(grav == 0.0f)
 		{
+			inAir = false;
+			hasJumped = 0;
+		}
+		else
+			inAir = true;
+
+		GameObject::update(dt);
+		hspeed = 0.0f;
+		//std::cout<<"PLAYER IS GOING"<<std::endl;
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
 				//setTexture(playerDTexture);
@@ -57,34 +59,24 @@ void Player::update(float dt)
 				//if(!Collision::BoundingBoxTest(myTestObject, *this))
 					hspeed = -4.0f;
 			}
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && hasJumped < 2 && !jumpPressed)
 			{
 				//setTexture(playerDTexture);
 				//setTextureRect(sf::IntRect(64, 0, 32, 32));
 				//if(!Collision::BoundingBoxTest(myTestObject, *this))
-					vspeed = -4.0f;
+				move(0, -8);
+				vspeed = -8.0f;
+				hasJumped++;
+				jumpPressed = true;
 			}
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			{
-				//setTextureRect(sf::IntRect(96, 0, 32, 32));
-				//setTexture(playerDTexture);
-				//if(!Collision::BoundingBoxTest(myTestObject, *this))
-					vspeed = 4.0f;
+				jumpPressed = false;
 			}
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-			{
-				scale(2.0f, 2.0f);
-			}
-		}
-		else
-		{
-			setRotation(0.0f);
-			setTexture(playerTexture);
-			setTextureRect(sf::IntRect(0, 0, 32, 32));
-		}
+
+		std::cout<<inAir<<std::endl;
 	
 		//update collision shape
-		move(hspeed * dt, vspeed * dt);
 		collision.setPosition(sf::Vector2f(getPosition().x, getPosition().y)); //collision ahead of time for accurate response
 		/*collision.setPoint(0, sf::Vector2f(getPosition().x, getPosition().y));
 		collision.setPoint(1, sf::Vector2f(getPosition().x + 16, getPosition().y - 4));
