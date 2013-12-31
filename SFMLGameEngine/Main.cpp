@@ -2,6 +2,8 @@
 
 //***TODO***//
 /*
+ * CHECK enemies
+ * Spikes, timed beams, nonmoving obstacles, etc.
  * CHECK Implement class factory for mapfile loading
  * CHECK Implement image_manager (as described in tutorial)
  * sprites, story, etc.
@@ -9,6 +11,7 @@
  * Game will handle loading of images
  * CHECK Brawl-like snapback camera (hold wasd to move camera, when released it will lerp back into place)
  * TODO externalize all local variables in Main and move majority of code into functions i.e. die() reset() nextLevel() or whatever
+ * C++ify. Less C and more C++ correctness
  */
 
 /* MF SYNTAX
@@ -66,7 +69,7 @@ int Main::run()
 	sf::Sprite Background;
 	Background.setTexture(BackgroundTex);*/
 
-	Player* player = (Player*)GameObjectFactory::create("Player", texMan);
+	Player* player = dynamic_cast<Player*>(GameObjectFactory::create("Player", texMan));
 	player->setPosition(0.0f, 0.0f);
 	player->grav = 0.0f;
 	player->inAir = false;
