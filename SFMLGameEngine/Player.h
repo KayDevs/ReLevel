@@ -16,9 +16,9 @@ public:
 
 	GameObject myTestObject;
 
-	using GameObject::update;
+	//using GameObject::update;
 	virtual void update(float dt);
-	using GameObject::updateCollision;
+	//using GameObject::updateCollision;
 	virtual void updateCollision(float dt, std::vector<std::unique_ptr<GameObject>> &others);
 
 	bool inAir = false;

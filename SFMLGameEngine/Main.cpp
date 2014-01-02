@@ -12,6 +12,8 @@
  * CHECK Brawl-like snapback camera (hold wasd to move camera, when released it will lerp back into place)
  * TODO externalize all local variables in Main and move majority of code into functions i.e. die() reset() nextLevel() or whatever
  * C++ify. Less C and more C++ correctness
+ * Externalize into LevelData class designed to work with files and contain the arrays GameObjects, Killers, Solids, as well as track references to the player and other important items.
+ * LevelData should have create, destroy, update, and draw methods that will be called by the Main
  */
 
 /* MF SYNTAX
@@ -249,7 +251,6 @@ int Main::run()
 			//draw(gameObjects[i]->collision);
 		}
 
-		std::cout<<"Overlay Alpha: "<<overlayAlpha<<std::endl;
 		if(overlayAlpha > 0)
 			overlayAlpha -= 8.0f * dt;
 		if(overlayAlpha <= 0)

@@ -13,7 +13,7 @@ public:
 
 	//sf::ConvexShape blockShape;
 
-	using GameObject::update;
+	//using GameObject::update;
 	virtual void update(float dt);
 };
 
