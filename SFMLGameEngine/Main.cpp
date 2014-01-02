@@ -6,9 +6,7 @@
  * Spikes, timed beams, nonmoving obstacles, etc.
  * CHECK Implement class factory for mapfile loading
  * CHECK Implement image_manager (as described in tutorial)
- * sprites, story, etc.
  * CHECK collision system
- * Game will handle loading of images
  * CHECK Brawl-like snapback camera (hold wasd to move camera, when released it will lerp back into place)
  * TODO externalize all local variables in Main and move majority of code into functions i.e. die() reset() nextLevel() or whatever
  * C++ify. Less C and more C++ correctness
@@ -55,22 +53,6 @@ int Main::shutdown()
 
 int Main::run()
 {
-	/*sf::Texture Texture;
-	  if(!Texture.loadFromFile("background.jpg"))
-	  return EXIT_FAILURE;
-
-	  for(int i = 0; i < 5; ++i)
-	  {
-	  gameObjects.emplace_back(new GameObject());
-	  gameObjects[i]->setTexture(Texture);
-	//gameObjects[i].setSpeed(0.25f);
-	}*/
-
-	/*sf::Texture BackgroundTex;
-	BackgroundTex.loadFromFile("Background.png");
-	sf::Sprite Background;
-	Background.setTexture(BackgroundTex);*/
-
 	Player* player = dynamic_cast<Player*>(GameObjectFactory::create("Player", texMan));
 	player->setPosition(0.0f, 0.0f);
 	player->grav = 0.0f;
@@ -204,7 +186,6 @@ int Main::run()
 		{
 			float threshold = 32.0f;
 			float cameraSpeed = 16.0f;
-			//CAMERA SNAPS BACK INTO PLACE
 			if((ViewCenter.x - player->getPosition().x) > threshold 
 					|| (ViewCenter.y - player->getPosition().y) > threshold 
 					|| (ViewCenter.x - player->getPosition().x) < -threshold 
@@ -232,21 +213,13 @@ int Main::run()
 		setView(View);
 		overlay.setPosition(sf::Vector2f(ViewCenter.x - 1280/2, ViewCenter.y - 800/2));
 
-		//Background.setPosition(ViewCenter.x - 320, ViewCenter.y - 200);
 
 		//GRAPHICS
 
 		clear(sf::Color(255, 255, 255));
 
-		//draw(Background);
 		for(int i = 0; i < (int)gameObjects.size(); ++i)
 		{
-			//it->setPosition(100.0f, 30.0f);
-			//it->setRotation(rotation);
-			//gameObjects.at(1).setRotation(rotation/2);
-			//gameObjects.at(0).setPosition(100.0f, 30.0f);
-			//it->setScale(.25f, .25f);
-			//gameObjects[i]->setColor(sf::Color(255, 255, 255, 128));
 			draw(*gameObjects[i]);
 			//draw(gameObjects[i]->collision);
 		}
