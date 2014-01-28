@@ -34,7 +34,7 @@ Player::~Player(void)
 
 void Player::updateCollision(float dt, std::vector<std::unique_ptr<GameObject>> &others)
 {
-	killTime += 1.0f * dt;
+	killTime += 1.0f;
 	if(killTime >= 3.0f)
 	{
 		killed = false;

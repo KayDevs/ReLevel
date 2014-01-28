@@ -25,9 +25,4 @@ Block::~Block(void)
 void Block::update(float dt)
 {
 	collision.setPosition(getPosition());
-	/*collision.setPoint(0, sf::Vector2f(getPosition().x, getPosition().y));
-	collision.setPoint(1, sf::Vector2f(getPosition().x + 32, getPosition().y));
-	collision.setPoint(2, sf::Vector2f(getPosition().x + 32, getPosition().y + 32));
-	collision.setPoint(3, sf::Vector2f(getPosition().x, getPosition().y + 32));*/
-	//a block does literally nothing.
 }

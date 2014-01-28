@@ -18,8 +18,9 @@ void GameObject::update(float dt)
 {
 	//hspeed += haccel * dt;
 	//vspeed += vaccel * dt;
-	vspeed += grav * dt;
-	move(hspeed * dt, vspeed * dt);
+	vspeed += grav;
+	//move(hspeed * dt, vspeed * dt);
+	move(hspeed, vspeed);
 	if (vspeed > 12.0f)
 		vspeed = 12.0f;
 }

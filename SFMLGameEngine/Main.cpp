@@ -21,14 +21,13 @@
    Y
    End (of file)
 
-Ex:
-Obj
-Player 
-24 
-12
-End
+   Ex:
+   Obj
+   Player 
+   24 
+   12
+   End
 */
-
 
 int Main::initialize()
 {
@@ -37,12 +36,11 @@ int Main::initialize()
 	//create(sf::VideoMode::getFullscreenModes()[0], "SFML Tutorial Thing", sf::Style::Fullscreen);
 	sf::VideoMode testingMode = sf::VideoMode(1280, 800, 32);
 	create(testingMode, "ReLevel", sf::Style::Fullscreen);
-	setFramerateLimit(120);
-
+	setFramerateLimit(60);
+	
 	//ViewCenter = sf::Vector2<float>(getSize().x / 4.0f, getSize().y / 4.0f);
 	ViewCenter = sf::Vector2f(0, 0);
 	View.setSize(sf::Vector2f(getSize().x, getSize().y));
-
 	return EXIT_SUCCESS;
 }
 
@@ -58,7 +56,7 @@ int Main::run()
 	player->grav = 0.0f;
 	player->inAir = false;
 	gameObjects.emplace_back(player);
-
+	
 	ifstream mapfile;
 	string line;
 	string c;
@@ -115,33 +113,33 @@ int Main::run()
 		{
 			switch(Event.type)
 			{
-				case sf::Event::Closed:
+			case sf::Event::Closed:
+				close();
+				shutdown();
+				break;
+			case sf::Event::KeyPressed:
+				if(Event.key.code == sf::Keyboard::Escape)
+				{
 					close();
+					std::cout<<"Closed."<<std::endl;
 					shutdown();
-					break;
-				case sf::Event::KeyPressed:
-					if(Event.key.code == sf::Keyboard::Escape)
-					{
-						close();
-						std::cout<<"Closed."<<std::endl;
-						shutdown();
-						std::cout<<"Shut down."<<std::endl;
-					}
-					if(Event.key.code == sf::Keyboard::R)
-					{
-						player->setPosition(0, 0);
-						player->grav = 0.0f;
-						player->vspeed = 0.0f;
-						player->hspeed = 0.0f;
-						overlayAlpha = 255;
-						ViewCenter = sf::Vector2f(0, 0);
-					}
-					break;
-					//case sf::Event::MouseMoved:
+					std::cout<<"Shut down."<<std::endl;
+				}
+				if(Event.key.code == sf::Keyboard::R)
+				{
+					player->setPosition(0, 0);
+					player->grav = 0.0f;
+					player->vspeed = 0.0f;
+					player->hspeed = 0.0f;
+					overlayAlpha = 255;
+					ViewCenter = sf::Vector2f(0, 0);
+				}
+				break;
+				//case sf::Event::MouseMoved:
 
-					//	break;
-				default:
-					break;
+				//	break;
+			default:
+				break;
 			}
 		}
 
@@ -168,37 +166,37 @@ int Main::run()
 
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) 
-				|| sf::Keyboard::isKeyPressed(sf::Keyboard::D) 
-				|| sf::Keyboard::isKeyPressed(sf::Keyboard::W) 
-				|| sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		   || sf::Keyboard::isKeyPressed(sf::Keyboard::D) 
+		   || sf::Keyboard::isKeyPressed(sf::Keyboard::W) 
+		   || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
 			float cameraSpeed = 8.0f;
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && (ViewCenter.x >= (player->getPosition().x + 16) - (320 - 32)))
-				ViewCenter.x-=cameraSpeed * dt;
+				ViewCenter.x-=cameraSpeed;
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && (ViewCenter.x <= (player->getPosition().x + 16) + (320 - 32)))
-				ViewCenter.x+=cameraSpeed * dt;
+				ViewCenter.x+=cameraSpeed;
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && (ViewCenter.y >= (player->getPosition().y + 16) - (200 - 32)))
-				ViewCenter.y-=cameraSpeed * dt;
+				ViewCenter.y-=cameraSpeed;
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) && (ViewCenter.y <= (player->getPosition().y + 16) + (200 - 32)))
-				ViewCenter.y+=cameraSpeed * dt;
+				ViewCenter.y+=cameraSpeed;
 		}
 		else
 		{
 			float threshold = 32.0f;
 			float cameraSpeed = 16.0f;
 			if((ViewCenter.x - player->getPosition().x) > threshold 
-					|| (ViewCenter.y - player->getPosition().y) > threshold 
-					|| (ViewCenter.x - player->getPosition().x) < -threshold 
-					|| (ViewCenter.y - player->getPosition().y) < -threshold)
+			   || (ViewCenter.y - player->getPosition().y) > threshold 
+			   || (ViewCenter.x - player->getPosition().x) < -threshold 
+			   || (ViewCenter.y - player->getPosition().y) < -threshold)
 			{
 				if(ViewCenter.x < player->getPosition().x)
-					ViewCenter.x += cameraSpeed * dt;
+					ViewCenter.x += cameraSpeed;
 				if(ViewCenter.x > player->getPosition().x)
-					ViewCenter.x -= cameraSpeed * dt;
+					ViewCenter.x -= cameraSpeed;
 				if(ViewCenter.y < player->getPosition().y)
-					ViewCenter.y += cameraSpeed * dt;
+					ViewCenter.y += cameraSpeed;
 				if(ViewCenter.y > player->getPosition().y)
-					ViewCenter.y -= cameraSpeed * dt;
+					ViewCenter.y -= cameraSpeed;
 			}
 			else
 			{
@@ -225,7 +223,7 @@ int Main::run()
 		}
 
 		if(overlayAlpha > 0)
-			overlayAlpha -= 8.0f * dt;
+			overlayAlpha -= 8.0f;
 		if(overlayAlpha <= 0)
 		{
 			overlayAlpha = 0.0f;
@@ -249,6 +247,6 @@ int main(int argc, char** argv)
 		std::cout<<"Initialized."<<std::endl;
 		return theMain.run();
 	}
-		
+
 	return EXIT_FAILURE;
 }
