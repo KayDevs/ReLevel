@@ -33,12 +33,12 @@ void BasicEnemy::updateCollision(float dt, std::vector<std::unique_ptr<GameObjec
 			Utils::MTV coll = Utils::getCollision(collision, other->collision);
 			if(coll.smallest.x > 0.0f)
 			{
-				std::cout<<"Collision on left."<<std::endl;
+				//std::cout<<"Collision on left."<<std::endl;
 				hspeed = 4.0f;
 			}
 			if(coll.smallest.x < 0.0f)
 			{
-				std::cout<<"Collision on right."<<std::endl;
+				//std::cout<<"Collision on right."<<std::endl;
 				hspeed = -4.0f;
 			}
 			//move(coll.smallest.x * coll.overlap, coll.smallest.y * coll.overlap);
@@ -48,6 +48,6 @@ void BasicEnemy::updateCollision(float dt, std::vector<std::unique_ptr<GameObjec
 void BasicEnemy::update(float dt)
 {
 	GameObject::update(dt);
-	std::cout<<"Enemy X coord: "<<getPosition().x<<std::endl;
+	//std::cout<<"Enemy X coord: "<<getPosition().x<<std::endl;
 	collision.setPosition(getPosition());
 }

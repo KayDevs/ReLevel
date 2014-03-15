@@ -12,6 +12,18 @@
  * C++ify. Less C and more C++ correctness
  * Externalize into LevelData class designed to work with files and contain the arrays GameObjects, Killers, Solids, as well as track references to the player and other important items.
  * LevelData should have create, destroy, update, and draw methods that will be called by the Main
+ * Add console command system to interface with the LevelData, to allow for adding/removing objects at runtime
+ */
+
+/*
+  CURRENT PROBLEMS!!
+  -running speed is inversely porportional to the number of things on the screen - this could be anything:
+     - graphics (too many polygons)
+     - faulty memory handling
+     - collision testing slowing shit down
+     (test on lower/higher resolutions to confirm the latter two - if it's a graphical problem then it will worsen with screen resolution allegedly - though that might just add to the overhead introduced with the formerly stated problems)
+     further testing is required.
+  -not optimized, but save optimization for later seeing as things need to be actually done first
  */
 
 /* MF SYNTAX
@@ -60,7 +72,7 @@ int Main::run()
 	ifstream mapfile;
 	string line;
 	string c;
-	mapfile.open("ObjectList2.txt"); //change to argv[1]
+	mapfile.open("ObjectList3.txt"); //change to argv[1]
 	if(mapfile.is_open())
 	{
 		while(mapfile.good())
