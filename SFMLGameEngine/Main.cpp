@@ -2,6 +2,9 @@
 
 //***TODO***//
 /*
+ * Reorganize FileSystem.
+		-create /res
+		-create /bin and /src that both reference ../res
  * CHECK enemies
  * Spikes, timed beams, nonmoving obstacles, etc.
  * CHECK Implement class factory for mapfile loading
@@ -35,8 +38,8 @@
 
    Ex:
    Obj
-   Player 
-   24 
+   Player
+   24
    12
    End
 */
@@ -47,9 +50,9 @@ int Main::initialize()
 	//prepare the window and video settings
 	//create(sf::VideoMode::getFullscreenModes()[0], "SFML Tutorial Thing", sf::Style::Fullscreen);
 	sf::VideoMode testingMode = sf::VideoMode(1280, 800, 32);
-	create(testingMode, "ReLevel", sf::Style::Fullscreen);
+	create(testingMode, "ReLevel", sf::Style::Titlebar);
 	setFramerateLimit(60);
-	
+
 	//ViewCenter = sf::Vector2<float>(getSize().x / 4.0f, getSize().y / 4.0f);
 	ViewCenter = sf::Vector2f(0, 0);
 	View.setSize(sf::Vector2f(getSize().x, getSize().y));
@@ -68,11 +71,11 @@ int Main::run()
 	player->grav = 0.0f;
 	player->inAir = false;
 	gameObjects.emplace_back(player);
-	
+
 	ifstream mapfile;
 	string line;
 	string c;
-	mapfile.open("ObjectList3.txt"); //change to argv[1]
+	mapfile.open("ObjectList.txt"); //change to argv[1]
 	if(mapfile.is_open())
 	{
 		while(mapfile.good())
@@ -177,9 +180,9 @@ int Main::run()
 		//float absMouseY = sf::Mouse::getPosition(*this).y + ViewCenter.y - getSize().y / 2.0f;
 
 
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) 
-		   || sf::Keyboard::isKeyPressed(sf::Keyboard::D) 
-		   || sf::Keyboard::isKeyPressed(sf::Keyboard::W) 
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)
+		   || sf::Keyboard::isKeyPressed(sf::Keyboard::D)
+		   || sf::Keyboard::isKeyPressed(sf::Keyboard::W)
 		   || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
 			float cameraSpeed = 8.0f;
@@ -196,9 +199,9 @@ int Main::run()
 		{
 			float threshold = 32.0f;
 			float cameraSpeed = 16.0f;
-			if((ViewCenter.x - player->getPosition().x) > threshold 
-			   || (ViewCenter.y - player->getPosition().y) > threshold 
-			   || (ViewCenter.x - player->getPosition().x) < -threshold 
+			if((ViewCenter.x - player->getPosition().x) > threshold
+			   || (ViewCenter.y - player->getPosition().y) > threshold
+			   || (ViewCenter.x - player->getPosition().x) < -threshold
 			   || (ViewCenter.y - player->getPosition().y) < -threshold)
 			{
 				if(ViewCenter.x < player->getPosition().x)
